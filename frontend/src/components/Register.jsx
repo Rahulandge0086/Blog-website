@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 
-function Register({reg,misMatch}){
+function Register({reg,misMatch,cemail}){
     const [username,setUsername] = useState("");
     const [password,setPass] = useState("");
     const [checkpass,setCheckpass]=useState("");
@@ -46,8 +46,16 @@ function Register({reg,misMatch}){
             await fetch('http://localhost:3000/register',{
                 method:"POST",
                 body:formdata,
+            }).then((res) => res.json())
+            .then((result) => {
+              console.log(result);
+              if(result==false){
+                cemail();
+              }else{
+                reg();
+              }
             })
-            reg();
+            .catch((err) => console.error(err));
         }else{
             misMatch();
         }

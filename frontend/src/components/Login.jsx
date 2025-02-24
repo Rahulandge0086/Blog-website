@@ -11,6 +11,7 @@ function Login() {
   const [password,setPass] = useState("");
   const [isreg,setReg] = useState(true);
   const [ismatched,setMatched]= useState(false);
+  const [ispresent,setPresent] = useState(false);
   const navigate = useNavigate();
 
   function handleEmail(event){
@@ -44,6 +45,17 @@ function Login() {
 
   function handleMessage1(){
     setMatched(false);
+  }
+
+  function handleMessage2(){
+    setPresent(false);
+  }
+
+  function checkemail(){
+    setPresent(true);
+    setTimeout(()=>{
+      setPresent(false);
+    },2000)
   }
 
   async function handleSubmit(event) {
@@ -112,7 +124,26 @@ function Login() {
             </button>
           </div>
         </div>
-
+        {/* For register page if email already present */}
+        <div className="message-container1">
+          <div
+            className="message1"
+            style={{ display: ispresent ? "block" : "none"}}
+          >
+            Email Already Exists
+            <button
+              type="button"
+              className="close-message close"
+              onClick={() => {
+                handleMessage2();
+              }}
+            >
+              <span aria-hidden="true" className="cancel-message">
+                &times;
+              </span>
+            </button>
+          </div>
+        </div>
         <div className="login-container">
         <div style={{display:isreg?"block":"none"}} className="loginForm-div">
           <div style={{display:'flex',justifyContent:'center'}}>
@@ -144,7 +175,7 @@ function Login() {
           <button className="signUp-button" onClick={handleClick}><u>Sign up?</u></button>  
         </div>  
         <div style={{display:isreg?"none":"block",width: '350px',minWidth: '100px',margin: '10px'}}>
-            <Register reg={setregister} misMatch={handleMisMatch}/>
+            <Register reg={setregister} misMatch={handleMisMatch} cemail={checkemail}/>
           </div>
         </div>
     </div>
