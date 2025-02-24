@@ -2,7 +2,7 @@ import React,{useState,useContext } from "react";
 import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Register from "./register";
+import Register from "./Register";
 
 function Login() {
   const {setUser,setIsAuthenticated,isAuthenticated} = useContext(AuthContext);
@@ -10,6 +10,7 @@ function Login() {
   const [username,setUsername] = useState("");
   const [password,setPass] = useState("");
   const [isreg,setReg] = useState(true);
+  const [ismatched,setMatched]= useState(false);
   const navigate = useNavigate();
 
   function handleEmail(event){
@@ -31,6 +32,18 @@ function Login() {
 
   function handleMessage() {
     setAuthorized(false);
+  }
+
+  //To handle if passwords didn't match for re-enter
+  function handleMisMatch(){
+    setMatched(true);
+    setTimeout(()=>{
+      setMatched(false);
+    },2000)
+  }
+
+  function handleMessage1(){
+    setMatched(false);
   }
 
   async function handleSubmit(event) {
@@ -79,6 +92,27 @@ function Login() {
             </button>
           </div>
         </div>
+        {/* For register page message */}
+        <div className="message-container1">
+          <div
+            className="message1"
+            style={{ display: ismatched ? "block" : "none"}}
+          >
+            Check Password
+            <button
+              type="button"
+              className="close-message close"
+              onClick={() => {
+                handleMessage1();
+              }}
+            >
+              <span aria-hidden="true" className="cancel-message">
+                &times;
+              </span>
+            </button>
+          </div>
+        </div>
+
         <div className="login-container">
         <div style={{display:isreg?"block":"none"}} className="loginForm-div">
           <div style={{display:'flex',justifyContent:'center'}}>
@@ -110,7 +144,7 @@ function Login() {
           <button className="signUp-button" onClick={handleClick}><u>Sign up?</u></button>  
         </div>  
         <div style={{display:isreg?"none":"block",width: '350px',minWidth: '100px',margin: '10px'}}>
-            <Register reg={setregister}/>
+            <Register reg={setregister} misMatch={handleMisMatch}/>
           </div>
         </div>
     </div>

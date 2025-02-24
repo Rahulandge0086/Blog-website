@@ -1,8 +1,10 @@
 import React,{useState} from "react";
 
-function Register({reg}){
+function Register({reg,misMatch}){
     const [username,setUsername] = useState("");
     const [password,setPass] = useState("");
+    const [checkpass,setCheckpass]=useState("");
+    const [ismatched,setMatched] = useState(false);
     const [name,setName]=useState("");
 
     function handleEmail(event){
@@ -22,17 +24,33 @@ function Register({reg}){
         reg();
     }
 
+    function handleCheckPass(event){
+        setCheckpass(event.target.value);
+        if(event.target.value == ""){
+            setMatched(false);
+        }
+        if(event.target.value != password){
+            setMatched(true);
+        }else if(event.target.value === password){
+            setMatched(false);
+        }
+    }
+    
     async function handleSubmit(event){
         event.preventDefault();
-        const formdata = new FormData();
-        formdata.append('username',username);
-        formdata.append('password',password);
-        formdata.append('name',name);
-        await fetch('http://localhost:3000/register',{
-            method:"POST",
-            body:formdata,
-        })
-        reg();
+        if(checkpass===password){
+            const formdata = new FormData();
+            formdata.append('username',username);
+            formdata.append('password',password);
+            formdata.append('name',name);
+            await fetch('http://localhost:3000/register',{
+                method:"POST",
+                body:formdata,
+            })
+            reg();
+        }else{
+            misMatch();
+        }
     }
     
     return(
@@ -60,6 +78,16 @@ function Register({reg}){
                     type="password"
                     placeholder="Enter password"
                     onChange={handlePass}
+                    required
+                />
+                <label style={{color:'black'}}>Re-enter Password</label>
+                <input
+                    style={{border:ismatched ? '1.6px solid red':'1.6px solid rgb(72, 72, 232)'}}
+                    name="Checkpassword"
+                    className="login-pass"
+                    type="password"
+                    placeholder="Re-enter password"
+                    onChange={handleCheckPass}
                     required
                 />
                 <button className="login-submit" type="submit">
