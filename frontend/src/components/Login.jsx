@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Register from "./Register";
+import Message from "./Message";
 
 function Login() {
   const {setUser,setIsAuthenticated,isAuthenticated} = useContext(AuthContext);
@@ -85,65 +86,16 @@ function Login() {
   }
   return (
     <div>
-        <div className="message-container1">
-          <div
-            className="message1"
-            style={{ display: isAuthorized ? "block" : "none"}}
-          >
-            Invalid Credentials
-            <button
-              type="button"
-              className="close-message close"
-              onClick={() => {
-                handleMessage();
-              }}
-            >
-              <span aria-hidden="true" className="cancel-message">
-                &times;
-              </span>
-            </button>
-          </div>
-        </div>
-        {/* For register page message */}
-        <div className="message-container1">
-          <div
-            className="message1"
-            style={{ display: ismatched ? "block" : "none"}}
-          >
-            Check Password
-            <button
-              type="button"
-              className="close-message close"
-              onClick={() => {
-                handleMessage1();
-              }}
-            >
-              <span aria-hidden="true" className="cancel-message">
-                &times;
-              </span>
-            </button>
-          </div>
-        </div>
-        {/* For register page if email already present */}
-        <div className="message-container1">
-          <div
-            className="message1"
-            style={{ display: ispresent ? "block" : "none"}}
-          >
-            Email Already Exists
-            <button
-              type="button"
-              className="close-message close"
-              onClick={() => {
-                handleMessage2();
-              }}
-            >
-              <span aria-hidden="true" className="cancel-message">
-                &times;
-              </span>
-            </button>
-          </div>
-        </div>
+      <div style={{ display: isAuthorized ? "block" : "none"}}>
+        <Message  onSubmit={handleMessage} message="Invalid credentials"/>
+      </div>
+      <div style={{ display: ismatched ? "block" : "none"}} >
+        <Message onSubmit={handleMessage1} message="Passwords Mismatched"/>
+      </div>
+      <div style={{ display: ispresent ? "block" : "none"}} >
+        <Message onSubmit={handleMessage2} message="Email Already Exists"/>
+      </div>
+      
         <div className="login-container">
         <div style={{display:isreg?"block":"none"}} className="loginForm-div">
           <div style={{display:'flex',justifyContent:'center'}}>
