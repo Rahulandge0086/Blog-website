@@ -94,14 +94,19 @@ app.post('/login',upload.none(),passport.authenticate("local"),(req,res)=>{
 app.post('/register',upload.none(),async(req,res)=>{
   try{
     const {username,password,name} = {...req.body};
-    bcrypt.hash(password,saltRounds,async(err, hash)=>{
+    const result = await db.query("SELECT * FROM users WHERE email=$1",[username]);
+    if(result.rows==0){
+      bcrypt.hash(password,saltRounds,async(err, hash)=>{
       if(err){
         console.error("Error hashing password:", err);
       }else{
         await db.query("INSERT INTO users(email,password,name) VALUES ($1,$2,$3)",[username,hash,name])
-        res.send("successfull");
+        res.send(true);
       }
     })
+    }else{
+      res.send(false);
+    }
   }catch(err){
     res.send(false);
     console.log(err);
