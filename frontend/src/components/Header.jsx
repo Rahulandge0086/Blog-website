@@ -29,7 +29,7 @@ function Header() {
           <nav className="navbar navbar-expand-lg custom-navbar">
             <div className="container-fluid">
             <div style={{display:'flex',gap:'10px',alignItems:'center'}}>
-                  <Link className="headerButton" to="/dashboard">
+                  <Link className="headerButton" to="/">
                     <img src={logo} style={{width:'150px'}}/>
                   </Link>
                   <p style={{margin:'0px',fontSize:'small'}}>{currUser}</p>

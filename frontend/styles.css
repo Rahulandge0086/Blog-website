@@ -3,13 +3,17 @@
   text-align: center;
 }
 
+html{
+  background-color: #1b1a1a;
+}
+
 body {
   background-color: #1b1a1a;
 }
 
 #root{
   background-color:#1b1a1a;
-  height:100vh;
+  height:100%;
 }
 
 .inter {
@@ -223,8 +227,10 @@ span {
 }
 
 footer {
+  margin-top:100px;
   padding-top: 30px;
   background-color: #1b1a1a;
+  padding-bottom:20px;
 }
 
 .footer-svg {
@@ -234,10 +240,6 @@ footer {
   border-radius: 40%;
   cursor: pointer;
 }
-
-/* .footer-svg:hover {
-  
-} */
 
 .svg1:hover{
   fill: rgb(60, 60, 235);
@@ -914,6 +916,42 @@ form {
   height:200px;
 }
 
+.galleryICreate-div{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.galleryICreate-div1{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap-reverse;
+}
+
+.galleryICreate-img{
+  width:100%;
+  height:100%;
+  object-fit: fill;
+  overflow:hidden;
+}
+
+.galleryIimgCreate{
+  width:550px;
+  height:400px;
+  padding:20px;
+  background-color: wheat;
+  margin:20px;
+  margin-top:50px;
+}
+
+.galleryIimgCreate1{
+  width:800px;
+  height:400px;
+  padding:10px;
+  background-color: wheat;
+  margin:20px;
+}
 @media (max-width: 900px) {
   .carousel {
     padding: 50px;
@@ -956,6 +994,14 @@ form {
   }
   .textBox{
     width:90%;
+  }
+  .galleryIimgCreate{
+    height:300px;
+    padding:10px;
+  }
+  .galleryIimgCreate1{
+    width:700px;
+    height:300px;
   }
 }
 
@@ -1018,5 +1064,9 @@ form {
   .galleryRead-img{
     width :50%;
     height:150px;
+  }
+  .galleryIimgCreate1{
+    width:650px;
+    height:200px;
   }
 }

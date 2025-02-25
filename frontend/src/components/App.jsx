@@ -31,7 +31,7 @@ export default function App() {
         <PrivateRoute element={<Header />} />
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<PrivateRoute element={<GalleryCard />} />} />
+          <Route path="/" element={<PrivateRoute element={<GalleryCard />} />} />
           <Route path="/create" element={<PrivateRoute element={<Create />} />} />
           <Route path="/create/:id" element={<PrivateRoute element={<Create />} />} />
           <Route path="/view" element={<PrivateRoute element={<View />} />} />
