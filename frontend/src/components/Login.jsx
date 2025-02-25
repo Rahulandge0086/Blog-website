@@ -73,7 +73,7 @@ function Login() {
       });
       setUser(res.data.user);
       setIsAuthenticated(true);
-      navigate("/dashboard");
+      navigate("/");
     }catch(err){
       if(isAuthenticated===false){
         setAuthorized(true);
