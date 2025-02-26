@@ -80,9 +80,9 @@ function GalleryCard() {
       </div>
       <div>
         <div className='galleryICreate-div' data-aos="fade-up" >
-          <div style={{display:'flex',alignItems:'center',justifyContent:'center',flexWrap:'wrap'}}>
+          <div style={{display:'grid',alignItems:'center',justifyContent:'center',flexWrap:'wrap'}}>
             <p style={{fontSize:"3rem"}}><b>View All blogs</b></p>
-            {/* <p>You can easily view all the blogs written by all the authors in the <b><u>see more</u></b> section</p> */}
+            <p>You can easily view all the blogs written by all the authors in the <b><u>see more</u></b> section</p>
           </div>
           <div className="galleryIimgCreate">
             <img src={viewBlog_img} className="galleryICreate-img"/>
@@ -94,7 +94,7 @@ function GalleryCard() {
           </div>
           <div style={{display:'flex',alignItems:'center',justifyContent:'center',flexWrap:'wrap',width:'500px',padding:'5px'}}>
             <p style={{fontSize:"3rem"}}><b>Create Blogs Easily</b></p>
-            <p>You can easily view all the blogs written by all the authors in the <b><u>see more</u></b> section</p>
+            {/* <p>You can easily view all the blogs written by all the authors in the <b><u>see more</u></b> section</p> */}
           </div>
           
         </div>

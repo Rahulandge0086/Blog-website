@@ -151,8 +151,8 @@ body {
 
 .navbar-expand-lg .navbar-nav {
   flex-direction: row;
-  width: 100%;
-  justify-content: flex-end;
+  width: 40%;
+  justify-content: space-between;
   gap: 20px;
 }
 
@@ -173,6 +173,10 @@ span {
   background: none;
   border: none;
   color: antiquewhite;
+}
+
+.headerButton:hover{
+  color:rgb(250, 219, 180);
 }
 
 .imgDiv {
@@ -540,18 +544,26 @@ form {
 .viewButton {
   color: black;
   border: none;
-  background-color: rgb(248, 248, 31);
-  padding: 2px;
+  background-color: rgb(248, 122, 54);
+  padding: 5px;
   padding-left: 15px;
   padding-right: 15px;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.8em;
   height: min-content;
+  border-radius:15px;
+  color:antiquewhite;
+  border:1px solid rgb(255, 174, 174);
 }
 
 .viewButton:hover {
-  background-color: rgb(232, 232, 1);
+  background-color: rgb(255, 114, 38);
+  box-shadow: 
+  0 0 5px rgb(255, 20, 147),  /* Deep Pink */
+  0 0 10px rgb(255, 105, 180), /* Hot Pink */
+  0 0 15px rgb(186, 85, 211), /* Medium Orchid */
+  0 0 20px rgb(148, 0, 211); 
 }
 
 .viewDiv {
