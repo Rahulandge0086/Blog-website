@@ -37,7 +37,7 @@ function Header() {
               <button style={{backgroundColor:'rgb(244, 227, 165)'}}className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span style={{width:'1em',height:'1em'}} className="navbar-toggler-icon"></span>
               </button>
-              <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="collapse navbar-collapse navbarDiv" id="navbarNavAltMarkup">
                 <div className="navbar-nav">
                   <button className="headerButton">
                     <Link className="headerButton" to="/create">
