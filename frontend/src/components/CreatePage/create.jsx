@@ -13,6 +13,9 @@ function Create(){
   const [imgPath,setImgpath]=useState(null);
   const [isupload,setUpload]=useState(false);
   const [isClicked, setClicked] = useState(false);
+  const [docu,setDocu]=useState([]);
+  const [count,setCount] = useState(0);
+  const [bold,setBold] = useState(false);
 
   function handleInput(event) {
     setTitle(event.target.value);
@@ -99,6 +102,88 @@ function Create(){
         defaultInput();
       }
   }, []); 
+  
+
+  // Textarea auto-grow
+  // useEffect(() => {
+  //   const allTextareas = document.querySelectorAll('textarea.auto-resize');
+  //   allTextareas.forEach(autoResize);
+  // }, [docu]);
+
+  // const handleChange1 = (e, index) => {
+  //   const updated = [...docu];
+  //   updated[index] = e.target.value;
+  //   setDocu(updated);
+  //   autoResize(e.target);
+  // };
+
+  // const autoResize = (el) => {
+  //   el.style.height = 'auto';
+  //   el.style.height = el.scrollHeight + 'px';
+  // };
+
+  function addDocs(){
+    setDocu(prevValue => [...prevValue, ""]);
+  }
+  const editorRef = useRef(null);
+
+  const handleBoldClick = () => {
+    const selection = window.getSelection();
+    const editor = editorRef.current;
+
+    if (!selection.rangeCount) return;
+
+    const range = selection.getRangeAt(0);
+
+    // ✅ Make sure selection is within the editor only
+    if (editor && editor.contains(range.commonAncestorContainer)) {
+      const selectedText = selection.toString();
+
+      if (selectedText.length === 0) return;
+
+      if(!bold){
+        // Replace selected text with <strong>wrapped text</strong>
+        const strong = document.createElement('strong');
+        strong.textContent = selectedText;
+
+        const resetSpan = document.createElement('span');
+        resetSpan.appendChild(document.createTextNode('\u200B')); // zero-width space
+
+        range.deleteContents();
+        range.insertNode(resetSpan);
+        range.insertNode(strong);
+
+        const newRange = document.createRange();
+        newRange.setStartAfter(strong);
+        newRange.collapse(true); // caret only (not selecting text)
+
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+        setBold(true);
+      }else{
+        const strong = document.createElement('span');
+        strong.textContent = selectedText;
+
+        const resetSpan = document.createElement('span');
+        resetSpan.appendChild(document.createTextNode('\u200B')); // zero-width space
+
+        range.deleteContents();
+        range.insertNode(resetSpan);
+        range.insertNode(strong);
+
+        const newRange = document.createRange();
+        newRange.setStartAfter(strong);
+        newRange.collapse(true); // caret only (not selecting text)
+
+        selection.removeAllRanges();
+        selection.addRange(newRange);
+        setBold(false);
+      }
+      
+    }
+    // editorRef.current.focus();
+    // document.execCommand('bold');
+  };
 
   return (
     <div>
@@ -122,7 +207,7 @@ function Create(){
         </div>
       </div>
 
-      <div className="submit-button">
+      {/* <div className="submit-button">
         <Button
           class="saveButton"
           type="submit"
@@ -166,6 +251,57 @@ function Create(){
             value={content}
           />
         </div>
+      </div> */}
+      <div class="toolbar-container">
+        <div class="toolbar">
+          <button id="add-component" onClick={addDocs}>+</button>
+          <div id="size-tool">
+            <p style={{margin:0}}>A</p>
+            <div class="inc-dec-but">
+              <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M14 11L9.5 6L5 11" stroke="rgb(65, 65, 65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              
+              <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 6L9.5 11L14 6" stroke="rgb(65, 65, 65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+          <div id="font-tool">
+            <p style={{margin:0}}>Fonts</p>
+            <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 6L9.5 11L14 6" stroke="rgb(65, 65, 65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div id="textColor-tool">
+            <p style={{margin:0}}>A</p>
+            <div class="color-view"></div>
+          </div>
+          <button onClick={handleBoldClick}>B</button>
+          <button>U</button>
+          <button style={{fontFamily:"Italic"}}><i>I</i></button>
+          <div class="list">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 6H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 12H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 18H21" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 6H3.01" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 12H3.01" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3 18H3.01" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <button id="save-button">Save</button>
+      </div>
+
+      <div class="doc-container">
+          <div class="doc">
+          {docu.map((item, index) => (
+              <div className="write-textbox" ref={editorRef} contentEditable suppressContentEditableWarning></div>
+              // <textarea key={index} value={item} className="auto-resize write-textbox" onChange={(e) => handleChange1(e, index)}
+              // rows={1}></textarea>
+            ))}
+          </div>
       </div>
     </div>
   );

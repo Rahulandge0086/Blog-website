@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { getData, deleteData} from "../../../server.js";
+import { getData,getBlog, deleteData} from "../../../server.js";
 import Blog from "./Blog.jsx";
+import BlogView from "./BlogView.jsx";
 import Read from "./Read.jsx";
 import {Link} from "react-router-dom";
+import nature_image from "../../images/nature_image.jpg";
 import BeatLoader from "react-spinners/BeatLoader";
 
 function View() {
   const [data, setData] = useState([]);
   const [isClicked, setClick] = useState(false);
-  const [read, setRead] = useState([{ title: "", contents: "" }]);
+  const [read, setRead] = useState([{blog_id:'',email:'',blogcontent:''}]);
   const [isLoading,setLoading] = useState(true);
 
   async function handleDelete(id) {
@@ -21,25 +23,16 @@ function View() {
     const fetchGallery = async () => {
           try {
             setLoading(true);
-            getData().then(async (result)=>{
-              const updatedData = await Promise.all(
-              result.map(async (item) => {
-                const blob = new Blob([new Uint8Array(item.image.data)], { type: "image/png" });
-                return {
-                  ...item,
-                  imageUrl: URL.createObjectURL(blob), // Store object URL in each item
-                };
-              })
-            );
-            setData(updatedData);
-            setLoading(false);
+            getBlog().then((result)=>{
+              setData(result);
+              setLoading(false);
             })
             
           } catch (error) {
             console.error('Error fetching gallery:', error);
+            setLoading(false);
           }
         };
-    
         fetchGallery();
   }, []);
 
@@ -49,19 +42,10 @@ function View() {
 
   async function refresh(){
     setLoading(true);
-    getData().then(async (result)=>{
-      const updatedData = await Promise.all(
-      result.map(async (item) => {
-        const blob = new Blob([new Uint8Array(item.image.data)], { type: "image/png" });
-        return {
-          ...item,
-          imageUrl: URL.createObjectURL(blob), // Store object URL in each item
-        };
-      })
-    );
-    setData(updatedData);
-    setLoading(false);
+    getBlog().then((result)=>{
+      setData(result);
     })
+    setLoading(false);
   }
 
   const loaderStyle = {
@@ -76,16 +60,18 @@ function View() {
     function ReadClick(id) {
       setClick(true);
       const inf = data.filter((x)=>{
+        console.log(read);
         return x.blog_id==id;
       })
       setRead(inf);
     }
 
     return (
-      <div className="k" onClick={() => {
+      <div className={`k card-div shadow-${b.blog_id % 5}`} style={{marginLeft:'20px'}} onClick={() => {
         ReadClick(b.blog_id);
       }}>
-        <Blog imgpath={b.imageUrl} id={b.blog_id} t={b.title} c={b.contents} />
+        {/* <BlogView content={b.blogcontent} /> */}
+        <Blog imgpath={nature_image} id={b.blog_id} t={b.title} c={b.contents} />
         <button
           className="view-readMore"
           type="submit"
@@ -119,7 +105,7 @@ function View() {
       >
         <div className="close-div">
           <div className="viewDiv">
-            <Link to={"/create/" + read[0].blog_id}>
+            <Link to={"/document/" + read[0].blog_id}>
               <button className="viewButton">Edit</button>
             </Link>
 
@@ -139,16 +125,14 @@ function View() {
             }}
           >
             <span aria-hidden="true" className="cancel">
-              &times;
+              <svg xmlns="http://www.w3.org/2000/svg" stroke="black" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+              </svg>
             </span>
           </button>
         </div>
-        <div className="pageContainer">
-          <div className="content-page">
-            <Read title={read[0].title} content={read[0].contents} />
-          </div>
-          <img src={read[0].imageUrl} style={{width:'300px',height:'200px'}}/>
-        </div>
+        
+        <BlogView content={read[0].blogcontent} />
       </div>
     </div>
   );

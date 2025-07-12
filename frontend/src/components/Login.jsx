@@ -13,6 +13,8 @@ function Login() {
   const [isreg,setReg] = useState(true);
   const [ismatched,setMatched]= useState(false);
   const [ispresent,setPresent] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
   const navigate = useNavigate();
 
   function handleEmail(event){
@@ -98,30 +100,42 @@ function Login() {
       
         <div className="login-container">
         <div style={{display:isreg?"block":"none"}} className="loginForm-div">
-          <div style={{display:'flex',justifyContent:'center'}}>
-            <h6 style={{color:'black'}}>Sign in</h6>
-          </div>
+          <h6 style={{fontFamily:'inter',color:'black'}}>Sign in</h6>
+          <p style={{fontFamily:'inter',fontSize:'small'}}>log-in to your account and get started</p>
           <form className="login-form" onSubmit={handleSubmit}>
-            <label style={{color:'black'}}>Email</label>
-            <input
-              name="email"
-              className="login-email"
-              type="email"
-              placeholder="Enter Email"
-              onChange={handleEmail}
-              required
-            />
-            <label style={{color:'black'}}>Password</label>
-            <input
-              name="password"
-              className="login-pass"
-              type="password"
-              placeholder="Enter password"
-              onChange={handlePass}
-              required
-            />
+            <label style={{fontFamily:'inter',color:'black',marginBottom:'7px'}}>Email</label>
+            <div className={`input-contain ${username ? 'has-content' : ''}`}>
+              <input
+                name="email"
+                style={{margin:'0'}}
+                className="login-email"
+                type="email"
+                value={username}
+                placeholder="Your Email"
+                onChange={handleEmail}
+                required
+              />
+            </div>
+              <div className={`input-contain1 ${password ? 'has-content1' : ''}`} >
+                <label style={{fontFamily:'inter',color:'black',marginBottom:'10px'}}>Password</label>
+                <input
+                  name="password"
+                  className="login-pass"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  id="pwd"
+                  placeholder="Your Password"
+                  onChange={handlePass}
+                  required
+                />
+                <div style={{display:'flex',justifyContent:'end',gap:'5px',fontFamily:'inter'}}>
+                  <span style={{fontSize:'small'}}>show password </span> 
+                  <input type="checkbox" onChange={(e) => setShowPassword(e.target.checked)}></input>
+                </div>
+            </div>
+            
             <button className="login-submit" type="submit">
-              Submit
+              Sign In
             </button>
           </form>
           <button className="signUp-button" onClick={handleClick}><u>Sign up?</u></button>  
