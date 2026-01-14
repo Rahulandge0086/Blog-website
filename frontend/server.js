@@ -12,6 +12,13 @@ export async function save(title, content,imgsrc) {
         })
 }
 
+export async function getBlog(content) {
+      const result = await fetch('http://localhost:3000/api/getBlogdata')
+      const responce = await result.json();
+      console.log(responce);
+      return responce;
+}
+
 export async function getData() {
   const response = await fetch('http://localhost:3000/api/getblog');
   const result = await response.json();

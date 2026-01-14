@@ -24,9 +24,9 @@ app.use(
     resave:false,
     saveUninitialized: true,
     cookie: {
-      secure: false, // Set to `true` if using HTTPS (should be `false` for HTTP in development)
+      secure: false, 
       maxAge: 1000 * 60 * 60 * 24, // Cookie expiration time (1 day)
-      httpOnly: true, // This helps prevent XSS attacks by making the cookie inaccessible to JavaScript
+      httpOnly: true, //Makes the cookie inaccessible to JavaScript
       sameSite: 'strict', // Ensures the cookie is only sent with requests to the same origin
     },
   }))
@@ -37,8 +37,8 @@ const upload = multer({
   limits: { fileSize: 50 * 1024 * 1024 },   //By default size is very less we need to manually increase the size to store in express.
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(express.json({ limit: "50mb" }));  Use this express.json middleware to parse the incoming json
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '20mb' }));  
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -111,11 +111,10 @@ app.post('/register',upload.none(),async(req,res)=>{
     res.send(false);
     console.log(err);
   }
-  
 })
 
 app.get('/auth/status',(req,res)=>{
-  if(req.isAuthenticated()){
+  if(req.isAuthenticated()){ //isAuthenticated is given by passport library checks if user logged or not, ispredefined and checks for seesion if already exists.
     res.json({ isAuthenticated: true, user: req.user });
   }else{
     res.json({ isAuthenticated: false });
@@ -128,6 +127,18 @@ app.get("/logout", (req, res) => {
     res.json({ message: "Logged out" });
   });
 });
+
+app.post('/api/Savedata',async (req,res)=>{
+  const {type,content} ={...req.body};
+  console.log(content);
+  await db.query("INSERT INTO nblog(email,blogcontent) VALUES($1,$2)",[currUser,content]);
+  res.json({message:"Saved"});
+});
+
+app.get('/api/getBlogdata',async (req,res)=>{
+  const responce=await db.query("SELECT * FROM nblog WHERE email=$1" ,[currUser]);
+  res.json(responce.rows);
+})
 
 app.post('/api/getdata',upload.single("image"),async (req,res)=>{
     const {title,content}={...req.body}; //destructuring body
@@ -151,14 +162,14 @@ app.get('/api/getAllblog',async (req,res)=>{
 app.post('/api/delete', upload.none(),async(req,res)=>{
   let id = req.body.id;
   id=Number(id);
-  await db.query("DELETE FROM blog WHERE blog_id=$1",[id]);
+  await db.query("DELETE FROM nblog WHERE blog_id=$1",[id]);
   res.send("Deleted");
 });
 
 app.post('/api/getByid', upload.none(),async(req,res)=>{
     let id = req.body.id;
     id=Number(id);
-    const responce = await db.query("SELECT * from blog WHERE blog_id=$1",[id]);
+    const responce = await db.query("SELECT * from nblog WHERE blog_id=$1",[id]);
     res.send(responce.rows[0]);
 })
 
@@ -215,7 +226,7 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser(async (email, cb) => {
   // console.log('Deserialize User, email:', email);
   const result = await db.query("SELECT * FROM users WHERE email=$1", [email]);
-  cb(null, result.rows[0]); // Retrieve user info based on email
+  cb(null, result.rows[0]); // Retrieving user info based on email
 });
 
 app.listen(port, () => {

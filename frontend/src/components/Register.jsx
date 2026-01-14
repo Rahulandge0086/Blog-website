@@ -63,14 +63,13 @@ function Register({reg,misMatch,cemail}){
     
     return(
         <div className="register-form">
-            <div style={{display:'flex',justifyContent:'center'}}>
-                <h6 style={{color:'black'}}>Sign Up</h6>
-            </div>
+            <h6 style={{fontFamily:'inter',color:'black'}}>Sign Up</h6>
+            <p style={{fontFamily:'inter',fontSize:'small'}}>Create account and get started with your blogging journey.</p>
             <form className="login-form" onSubmit={handleSubmit}>
-                <label style={{color:'black'}}>Name</label>
+                <label style={{fontSize:'14px',fontFamily:'inter',color:'black'}}>Name</label>
                 <input name="Name" type="text" className="login-email" placeholder="Enter Name" onChange={handleName}
                     required/>
-                <label style={{color:'black'}}>Email</label>
+                <label style={{fontSize:'14px',fontFamily:'inter',color:'black'}}>Email</label>
                 <input
                     name="email"
                     className="login-email"
@@ -79,7 +78,7 @@ function Register({reg,misMatch,cemail}){
                     onChange={handleEmail}
                     required
                 />
-                <label style={{color:'black'}}>Set a Password</label>
+                <label style={{fontSize:'14px',fontFamily:'inter',color:'black'}}>Set a Password</label>
                 <input
                     name="password"
                     className="login-pass"
@@ -88,9 +87,9 @@ function Register({reg,misMatch,cemail}){
                     onChange={handlePass}
                     required
                 />
-                <label style={{color:'black'}}>Re-enter Password</label>
+                <label style={{fontSize:'14px',fontFamily:'inter',color:'black'}}>Re-enter Password</label>
                 <input
-                    style={{border:ismatched ? '1.6px solid red':'1.6px solid rgb(72, 72, 232)'}}
+                    style={{border:ismatched ? '1.5px solid red':'1.5px solid rgb(188, 188, 188)'}}
                     name="Checkpassword"
                     className="login-pass"
                     type="password"
@@ -98,11 +97,11 @@ function Register({reg,misMatch,cemail}){
                     onChange={handleCheckPass}
                     required
                 />
-                <button className="login-submit" type="submit">
-                    Save
+                <button style={{marginTop:'20px'}} className="login-submit" type="submit">
+                    Sign Up
                 </button>
             </form>
-            <button style={{background:'none'}} type="submit" onClick={handleBack} className="Regback-button">
+            <button style={{fontFamily:'inter',background:'none'}} type="submit" onClick={handleBack} className="Regback-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" className="bi bi-arrow-left arrow-svg" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
             </svg>back
