@@ -8,7 +8,6 @@ function Card(props) {
         <p className="card-div-title">{props.title}</p>
         <p>{props.content}</p>
       </div>
-      
     </div>
   );
 }

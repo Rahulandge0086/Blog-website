@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay,EffectCoverflow } from 'swiper/modules';
 
 function GalleryCard() {
   const [data, setData] = useState([]);
@@ -66,8 +66,8 @@ function GalleryCard() {
   };
   
   return (
-    <div>
-      <div>
+    <div className="home-container">
+      {/* <div>
         <video
           autoPlay
           muted
@@ -81,18 +81,36 @@ function GalleryCard() {
           />
           Your browser does not support the video tag.
         </video>
-      </div>
+      </div> */}
       <div style={{display:isLoading ? "block" : "none"}}>
         <BeatLoader size="10px" color="#ffe6a9" speedMultiplier="0.7" cssOverride={loaderStyle} />
       </div>
-      <div class="main-heading">
-          <p className="p-head"><b>Welcome To <br/>USblog</b></p>
-          <div className="main-diag"><svg width="600" height="300" viewBox="0 0 582 286" fill="red" xmlns="http://www.w3.org/2000/svg">
-            <path opacity="0.8" d="M86.5148 64.9209C372.147 -7.9508 793.504 203.009 456.175 108.987C118.846 14.9649 427.755 347.394 445.168 201.318C462.582 55.2418 -187.41 490.001 75.5083 157.252C338.427 -175.497 -199.118 137.793 86.5148 64.9209Z" fill="#FCB859"/>
-            </svg>
-          </div>
+      <div className="aes-circle"></div>
+      <div className="aes-circle1"></div>
+      {/* <div className="main-container">
+        <div class="heading-container">
+          <p className="heading"><b>Welcome To <br/>USblog</b></p>
+          <h1 style={{zIndex:10,margin:'10px',marginBottom:'30px'}}>Read. Reflect. Reimagine.</h1>
+          <span className="sub-heading">Your go-to space for inspiration, insight, and authentic stories. 
+            Here, we dive into topics that matter from everyday tips and personal reflections to deep dives
+             and expert guides. Whether you're here to learn something new, spark creativity, or just enjoy 
+             a good read, you are in the right place.
+          </span>
+        </div>
+        <div className="main-animation">
+        </div>
+      </div> */}
+      <div className="main-container">
+        <div className="box1"> <p className="heading"><b>Welcome To USblog</b></p></div>
+        <div className="box3"><div className="main-animation">
+        </div></div>
+        <div className="box2"><h1 style={{zIndex:10,margin:'10px',marginBottom:'30px'}}>Read. Reflect. Reimagine.</h1></div>
+        <span className="sub-heading box4">Your go-to space for inspiration, insight, and authentic stories. 
+            Here, we dive into topics that matter from everyday tips and personal reflections to deep dives
+             and expert guides. Whether you're here to learn something new, spark creativity, or just enjoy 
+             a good read, you are in the right place.
+          </span>
       </div>
-      
       <div class="heading-carousel">
         <p>Find The creative Blogs Here</p>
       </div>
@@ -104,34 +122,41 @@ function GalleryCard() {
           </Link>
         </div> */}
         <Swiper
-          modules={[Navigation, Pagination, Autoplay]}
+          modules={[Navigation, Pagination, Autoplay,EffectCoverflow]}
+          effect={'coverflow'}
           spaceBetween={50}
-          slidesPerView={3}            // Show 3 boxes at once
-          // centeredSlides={false}
-          navigation={true} // for arrow support
+          centeredSlides={true}
+          navigation={true} 
+          coverflowEffect={{
+            rotate: 0,   
+            stretch: 0,
+            scale: 0.9,      
+            modifier: 1,
+            slideShadows: false, 
+          }}
           breakpoints={{
             0: {
               spaceBetween: 50,
               slidesPerView : 1,
             },
-            560:{
+            700:{
               spaceBetween: 0,
               slidesPerView : 2
             },
             800: {
               spaceBetween: 50,
-              slidesPerView : 3 
+              slidesPerView :3
             },
           }}
           pagination={{ clickable: true }}
-          autoplay={{ delay: 3000 }}
-          loop={true}
-          style={{padding:"50px"}}
+          // autoplay={{ delay: 3000 }}
+          // loop={true}
+          style={{padding:"50px",width:'max-content'}}
           className="mySwiper"
           >
               {data.map((item, index) => (
-              <SwiperSlide key={index} >
-                <div style={{marginLeft:'20px'}}>
+              <SwiperSlide key={index} style={{width:'max-content',margin:'50px'}} >
+                <div style={{width:'max-content'}}>
                   {create(item)}
                 </div>
               </SwiperSlide>

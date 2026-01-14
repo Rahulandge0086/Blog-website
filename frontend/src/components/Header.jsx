@@ -60,7 +60,7 @@ function Header() {
   },[])
   return (
     <div className="headerDiv">
-      <div style={{width:'100%',display:'flex',justifyContent:'space-between',padding:'20px'}}>
+      <div style={{width:'100%',display:'flex',justifyContent:'space-between',padding:'20px',paddingBottom:'10px'}}>
         <div>
           <Link to="/">
               logo

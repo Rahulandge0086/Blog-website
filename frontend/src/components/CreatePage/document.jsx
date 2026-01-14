@@ -164,44 +164,47 @@ function Document() {
         </div> 
         <div className="toolbar-container">
           <div id="custom-toolbar" className="toolbar" style={{border:'none'}}>
-            <select className="ql-header ql-but" defaultValue="">
-              <option value="1" />
-              <option value="2" />
-              <option value="3" />
-              <option value="" />
-            </select>
-            <select className="ql-size ql-but" defaultValue="">
-              <option value="huge" />
-              <option value="large" />
-              <option value="small" />
-              <option value="" />
-            </select>
-            <div style={{display:inSize?'none':'block'}} onClick={handleShow}>
-              <svg style={{cursor:'pointer'}}xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-              </svg>
-            </div>
-            <div style={{flexWrap:'wrap',gap:'15px',zIndex:'10',display:inSize || inOrder?'flex':'none',position:!inSize || inOrder? 'absolute':'unset',top:!inSize || inOrder? '145px':'0px',width:!inSize || inOrder? '90%':'',backgroundColor:!inSize || inOrder? 'rgb(233 243 254)':'',padding:!inSize || inOrder? '2px':'',border:!inSize || inOrder? '1px solid rgb(177, 202, 220)':''}}>
-              <button className="ql-bold" />
-              <button className="ql-italic" />
-              <button className="ql-underline" />
-              <select className="ql-color" />
-              <select className="ql-background ql-but" />
-              <button className="ql-image ql-but" />
-              <button className="ql-link" style={{borderRight:'2px solid rgb(189, 189, 189)',borderRadius:'0px'}}/>
-              <select className="ql-align" defaultValue="">
+            <div className="mid-contain">
+                <select className="ql-header ql-but" defaultValue="">
+                <option value="1" />
+                <option value="2" />
+                <option value="3" />
                 <option value="" />
-                <option value="center" />
-                <option value="right" />
-                <option value="justify" />
               </select>
-              <button className="ql-list" value="ordered"/>
-              <button className="ql-list" value="bullet"/>
-              <button className="ql-blockquote"/>
-              <button className="ql-clean" />
-            </div> 
+              <select className="ql-size ql-but" defaultValue="">
+                <option value="huge" />
+                <option value="large" />
+                <option value="small" />
+                <option value="" />
+              </select>
+              <select className="ql-align" defaultValue="">
+                  <option value="" />
+                  <option value="center" />
+                  <option value="right" />
+                  <option value="justify" />
+                </select>
+              {/* <div style={{display:inSize?'none':'block'}} onClick={handleShow}>
+                <svg style={{cursor:'pointer'}}xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                  <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                </svg>
+              </div> */}
+              {/* <div style={{flexWrap:'wrap',gap:'15px',zIndex:'10',display:inSize || inOrder?'flex':'none',position:!inSize || inOrder? 'absolute':'unset',top:!inSize || inOrder? '145px':'0px',width:!inSize || inOrder? '90%':'',backgroundColor:!inSize || inOrder? 'rgb(233 243 254)':'',padding:!inSize || inOrder? '2px':'',border:!inSize || inOrder? '1px solid rgb(177, 202, 220)':''}}> */}
+                <button id="bold-btn" className="ql-bold" style={{stroke:"white"}}/>
+                <button className="ql-italic" />
+                <button className="ql-underline" />
+                <select className="ql-color" ></select>
+                <select className="ql-background ql-but" />
+                <button className="ql-image ql-but" />
+                <button className="ql-link" style={{borderRight:'2px solid rgb(189, 189, 189)',borderRadius:'0px'}}/>
+                <button className="ql-list" value="ordered"/>
+                <button className="ql-list" value="bullet"/>
+                <button className="ql-blockquote"/>
+                <button className="ql-clean" />
+              {/* </div>  */}
+            </div>
+            
           </div>
-          <button style={{display:'inline'}} className="saveButton" onClick={handleSave}>Save</button>
+          {/* <button style={{display:'inline'}} className="saveButton" onClick={handleSave}>Save</button> */}
         </div>   
       <div className="editor-container">     
         <div className="editor-div">
